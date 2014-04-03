@@ -5,7 +5,6 @@
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
 var callback = require('./routes/callback');
 var http = require('http');
 var path = require('path');
@@ -26,20 +25,14 @@ app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-// setup database
-var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/showme';
-var mongo = require('mongoskin');
-var db = mongo.db(mongoUri, {native_parser : true});
-
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
-app.get('/', routes.index);
-app.get('/users', user.list);
-
-app.get('/callback', callback.handle);
+routes(app);
+//app.get('/', routes.index);
+//app.get('/users', user.list);
+//app.get('/callback', callback.handle);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
