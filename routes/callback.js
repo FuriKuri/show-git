@@ -37,6 +37,7 @@ function CallbackHandler() {
                     request(opt2, function(error, result, body) {
                         console.log(body);
                         res.render('repo', {
+                            "title" : "Repos",
                             "repos" : JSON.parse(body)
                         });
                     });

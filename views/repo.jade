@@ -1,6 +1,13 @@
 extends layout
 block content
-    h1. Repo List
-    ul
-        each repo, i in repos
-            li= repo.name
+  div.row
+    div(class='large-12' class='columns')
+      h1= title
+  div.row
+    div(class='large-12' class='columns')
+      div.panel
+        p List of Repos
+          p
+            ul
+              each repo, i in repos
+                li= repo.name
